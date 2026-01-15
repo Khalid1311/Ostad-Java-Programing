@@ -7,7 +7,7 @@ import java.util.Scanner;
 public class FinanceTrackerApp {
 
     private static void AddTransaction(Scanner sc,ArrayList<Transaction> transactions){
-        String id = String.valueOf(transactions.size());
+        String id = String.valueOf(transactions.size() + 1);
 
         String type;
         while (true){
@@ -21,6 +21,7 @@ public class FinanceTrackerApp {
         while (true){
             System.out.print("Enter the amount : ");
             amount = sc.nextDouble();
+            sc.nextLine();
             if (amount > 0)break;
             else System.out.println("Amount must be positive!");
         }
@@ -50,9 +51,10 @@ public class FinanceTrackerApp {
         else {
             System.out.println("\nID | TYPE | AMOUNT | DESCRIPTION | DATE");
             for (Transaction t : transactions){
-                System.out.print(t.getID() + " | " + t.getType() + " | " + t.getAmount() + " | "+ t.getDescription() + " | " +
+                System.out.println(t.getID() + " | " + t.getType() + " | " + t.getAmount() + " | "+ t.getDescription() + " | " +
                         t.getDate());
             }
+            System.out.println();
         }
     }
 
@@ -95,9 +97,9 @@ public class FinanceTrackerApp {
     private static void DeleteTransaction(Scanner sc, ArrayList<Transaction> transactions){
         System.out.print("Enter ID to Delete: ");
         String id = sc.nextLine();
-        for (Transaction t:transactions){
-            if(t.getID().equals(id)){
-                transactions.remove(t);
+        for (int i = 0; i < transactions.size(); i++) {
+            if (transactions.get(i).getID().equals(id)) {
+                transactions.remove(i);
                 System.out.println("Transaction deleted!");
             }
         }
@@ -106,7 +108,7 @@ public class FinanceTrackerApp {
     private static void CalculateBalance(ArrayList<Transaction> transactions) {
         double income = 0, expense = 0;
         for (Transaction t : transactions) {
-            if (t.getType().equals("INCOME")) {
+            if (t.getType().equalsIgnoreCase("INCOME")) {
                 income += t.getAmount();
             } else {
                 expense += t.getAmount();
@@ -128,10 +130,12 @@ public class FinanceTrackerApp {
                     2. Read Transaction
                     3. Update Transaction
                     4. Delete Transaction
+                    5. Calculate Balance
                     0. Exit                 
                     """);
             System.out.print("Enter the choice : ");
             int choice = sc.nextInt();
+            sc.nextLine();
 
             switch (choice){
 
