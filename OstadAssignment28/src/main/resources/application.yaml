@@ -1,0 +1,18 @@
+spring:
+  application:
+    name: OstadAssignment28
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/weather_db
+    username: postgres
+    password: khalid
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+
+weather:
+  api:
+    key: 2110ed5fedcb459fb46112000261207
+    url: https://api.weatherapi.com/v1/current.json
